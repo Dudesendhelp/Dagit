@@ -26,4 +26,23 @@ namespace core {
             }
         }
     }
+
+    std::string Repository::find_repo_root( fs::path path )
+    {
+        while(true)
+        {
+             if(fs::exists(path/".dagit"))
+             {
+                return path;
+             }
+             else if(path.has_parent_path())
+             {
+                path = path.parent_path();
+             }
+             else
+             {
+                throw std::runtime_error("No DAGit repository found in the current directory or any parent directories.");
+             }
+        }
+    }
 }

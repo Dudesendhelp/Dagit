@@ -1,5 +1,6 @@
 
 #include "../../include/core/repository.hpp"
+#include "../../include/core/object_store.hpp"
 #include <filesystem>
 #include <iostream>
 #include <optional>
@@ -11,15 +12,11 @@
 
 namespace fs = std::filesystem;
 
-namespace core
-{
-    class ObjectStore
-    {
-    public:
+
         // ############################################################################################
-        std::string static hash_object(std::string content, std::string type)
+        std::string core::ObjectStore::hash_object(std::string content, std::string type)
         {
-            fs::path repo_root = fs::path(Repository::find_repo_root()) / ".dagit/objects";
+            fs::path repo_root = fs::path(core::Repository::find_repo_root()) / ".dagit/objects";
             std::string hash = generate_hash(type + '\0' + content);
             if(object_exists(hash))
             {
@@ -40,7 +37,7 @@ namespace core
         }
         // ############################################################################################
 
-        std::string static generate_hash(const std::string &data)
+        std::string core::ObjectStore::generate_hash(std::string data)
         {
             unsigned char hash[SHA_DIGEST_LENGTH];
 
@@ -63,9 +60,9 @@ namespace core
         }
         // ############################################################################################
 
-        std::string static get_object(std::string type, std::string hash)
+        std::string core::ObjectStore::get_object(std::string type, std::string hash)
         {
-            fs::path repo_root = fs::path(Repository::find_repo_root()) / ".dagit/objects";
+            fs::path repo_root = fs::path(core::Repository::find_repo_root()) / ".dagit/objects";
             fs::path object_path = repo_root / hash;
 
             if (!fs::exists(object_path))
@@ -90,7 +87,7 @@ namespace core
             }
             std::string object_type = s.substr(0, i);
             std::string content = s.substr(i + 1);
-            if(object_type != type)
+            if(object_type != type && type != "")
             {
                 throw std::runtime_error("Object type mismatch: expected " + type + ", got " + object_type);
             }
@@ -98,12 +95,12 @@ namespace core
         }
         // ############################################################################################
 
-        bool static object_exists(std::string hash)
+        bool core::ObjectStore::object_exists(std::string hash)
         {
-            fs::path repo_root = fs::path(Repository::find_repo_root()) / ".dagit/objects";
+            fs::path repo_root = fs::path(core::Repository::find_repo_root()) / ".dagit/objects";
             fs::path object_path = repo_root / hash;
             return fs::exists(object_path);
         }
+    
             
-    };
-}
+

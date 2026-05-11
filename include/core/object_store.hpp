@@ -4,6 +4,7 @@
 #include <iostream>
 #include <optional>
 #include <string>
+#include <openssl/sha.h>
 namespace fs = std::filesystem;
 
 namespace core

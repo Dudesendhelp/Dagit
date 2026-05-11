@@ -9,6 +9,8 @@ file(GLOB_RECURSE SOURCES
     src/*.cpp
 )
 
+find_package(OpenSSL REQUIRED)
+
 add_executable(dagit
     main.cpp
     ${SOURCES}
@@ -18,3 +20,5 @@ target_include_directories(dagit PRIVATE
     include
     external
 )
+
+target_link_libraries(dagit PRIVATE OpenSSL::Crypto)

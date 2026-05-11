@@ -15,9 +15,11 @@ namespace core {
         }
         else{
             try
-                {fs::create_directory(path+"/.dagit");
-                std::cout << "DAGit repository initialized successfully." << std::endl;
-                return true;
+                {
+                 fs::create_directory(path+"/.dagit");
+                 fs::create_directory(path+"/.dagit/objects");
+                 std::cout << "DAGit repository initialized successfully." << std::endl;
+                 return true;
                 }
             catch(const fs::filesystem_error& e)
             {

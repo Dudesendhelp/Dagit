@@ -7,6 +7,9 @@
  
 class CatFileCommand : public ICommand
 {
+private:
+    std::string hash = "";
+public:
    static void execute(const std::string &hash);
    void setup(CLI::App &app) override;
 };

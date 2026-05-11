@@ -16,15 +16,14 @@
    }
    void CatFileCommand::setup(CLI::App &app){
         auto *sub=app.add_subcommand("cat-file", "Print the content of an object given its hash");
-        std::string hash;
         sub->add_option(
             "hash",
-            hash,
+            this->hash,
             "Hash of the object to print"
         )->required();
-        sub->callback([&hash]()
+        sub->callback([this]()
         {
-            execute(hash);
+            execute(this->hash);
         });
    }
 

@@ -10,15 +10,14 @@
         }
         void WriteTreeCommand::setup(CLI::App &app) {
             auto *sub= app.add_subcommand("write-tree", "Write a tree object from the current directory and print its hash");
-            std::string file_path;
             sub->add_option(
                 "file",
-                file_path,
+                this->file_path,
                 "Path to the directory to write the tree from"
-            )->required();
-            sub->callback([&file_path]()
+            );
+            sub->callback([this]()
             {
-                execute(file_path);
+                execute(this->file_path);
             });
         }
 

@@ -37,7 +37,7 @@ namespace core {
              {
                 return path;
              }
-             else if(path.has_parent_path())
+             else if(path.has_parent_path() && path != path.parent_path())
              {
                 path = path.parent_path();
              }

@@ -23,7 +23,7 @@ namespace fs = std::filesystem;
                 return hash;
             }
             std::string object = type + '\0' + content;
-            
+                
             if (!fs::exists(repo_root)) {
                 fs::create_directories(repo_root);
             }

@@ -8,7 +8,8 @@ namespace fs = std::filesystem;
 namespace core {
     bool Repository::init(const std::string &path)
     {
-        if(fs::exists(path+"/.dagit"))
+        std::string repo_path=find_repo_root(fs::current_path());
+         if(!repo_path.empty())
         {
             std::cout << "DAGit already initiated in this directory." << std::endl;
             return true;
@@ -43,8 +44,12 @@ namespace core {
              }
              else
              {
+                return "";
                 throw std::runtime_error("No DAGit repository found in the current directory or any parent directories.");
+                
              }
         }
     }
+
+
 }

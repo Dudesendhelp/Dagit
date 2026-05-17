@@ -12,5 +12,7 @@ namespace core
        static std::string create_commit(std::string message);
        static std::unordered_map<std::string, std::string> get_commit(const std::string& commit_hash);
        static std::string iter_commits_and_parents();
+       static std::string get_head();
+       static void set_head(const std::string& commit_hash);
     };
 }

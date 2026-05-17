@@ -18,3 +18,11 @@ std::unordered_map<std::string, std::string> core::Commit::get_commit(const std:
     std::string commit_message=content.substr(46);
     return {{"tree_hash", tree_hash}, {"message", commit_message}};
 }
+
+std::string core::Commit::get_head()
+{
+    fs::path repo_root = fs::path(core::Repository::find_repo_root());
+    repo_root = repo_root / ".dagit/HEAD";
+    
+
+}
